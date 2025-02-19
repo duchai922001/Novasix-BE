@@ -4,9 +4,11 @@ import { HttpStatus } from "../../domain/enums/http-status.enum";
 import authRoutes from "./auth.route";
 import { BadRequestException } from "../../domain/exceptions/bad-request.exception";
 import { HttpException } from "../../domain/exceptions/http.exception";
+import dailyTaskRoutes from "./daily.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
+  app.use("/daily-task", dailyTaskRoutes);
   app.use("*", (req: Request, res: Response) => {
     const notFoundException = new NotFoundException("Endpoint không tìm thấy");
     res.status(HttpStatus.NOT_FOUND).json(notFoundException.toResponse());
