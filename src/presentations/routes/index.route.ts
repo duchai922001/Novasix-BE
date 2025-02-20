@@ -8,6 +8,7 @@ import dailyTaskRoutes from "./daily.route";
 import weeklyTaskRoutes from "./week.route";
 import monthlyEventRoutes from "./monthly.route";
 import sentenceRoutes from "./sentence.route";
+import quoteRoutes from "./quote.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
@@ -15,6 +16,7 @@ export const initRoutes = (app: any) => {
   app.use("/weekly-task", weeklyTaskRoutes);
   app.use("/monthly-event", monthlyEventRoutes);
   app.use("/sentence", sentenceRoutes);
+  app.use("/quote", quoteRoutes);
   app.use("*", (req: Request, res: Response) => {
     const notFoundException = new NotFoundException("Endpoint không tìm thấy");
     res.status(HttpStatus.NOT_FOUND).json(notFoundException.toResponse());
