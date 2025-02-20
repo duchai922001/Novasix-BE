@@ -9,7 +9,7 @@ const app = express();
 //config connect FE
 app.use(express.json());
 const corsOptions = {
-  origin: process.env.CLIENT,
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
