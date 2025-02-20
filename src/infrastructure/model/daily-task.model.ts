@@ -3,6 +3,7 @@ import { TypeTask } from "../../domain/enums/type-task.enum";
 import { StatusTask } from "../../domain/enums/status-task.enum";
 
 export interface IDailyTask extends Document {
+  userId: string;
   title: string;
   description: string;
   attachedFile: string;
@@ -13,6 +14,7 @@ export interface IDailyTask extends Document {
 
 const DailyTaskSchema: Schema = new Schema<IDailyTask>(
   {
+    userId: { type: String, required: true },
     title: {
       type: String,
       required: true,

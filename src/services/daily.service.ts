@@ -27,12 +27,12 @@ export const DailyTaskService = {
       throw new BadRequestException("Lỗi trong quá trình xóa");
     }
   },
-  getTaskDaily: async (date: string | Date) => {
-    const taskDaily = await DailyTaskRepo.getProcessTaskDaily(date);
+  getTaskDaily: async (userId: string, date: string | Date) => {
+    const taskDaily = await DailyTaskRepo.getProcessTaskDaily(userId, date);
     return taskDaily;
   },
-  getTaskDoneDaily: async (date: string | Date) => {
-    const taskDaily = await DailyTaskRepo.getCompletedTaskDaily(date);
+  getTaskDoneDaily: async (userId: string, date: string | Date) => {
+    const taskDaily = await DailyTaskRepo.getCompletedTaskDaily(userId, date);
     return taskDaily;
   },
 };

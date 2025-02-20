@@ -8,6 +8,12 @@ export interface IDailyRepository {
     task: IDailyTask
   ): Promise<IDailyTask | null>;
   deleteDailyTask(dailyTaskId: string): Promise<boolean>;
-  getProcessTaskDaily(date: string | Date): Promise<IDailyTask[]>;
-  getCompletedTaskDaily(date: string | Date): Promise<IDailyTask[]>;
+  getProcessTaskDaily(
+    userId: string,
+    date: string | Date
+  ): Promise<IDailyTask[]>;
+  getCompletedTaskDaily(
+    userId: string,
+    date: string | Date
+  ): Promise<IDailyTask[]>;
 }

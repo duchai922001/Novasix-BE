@@ -22,7 +22,10 @@ export class DailyRepositoryImpl implements IDailyRepository {
   async createTaskDaily(task: IDailyTask): Promise<IDailyTask> {
     return await DailyTask.create(task);
   }
-  async getProcessTaskDaily(date: string | Date): Promise<IDailyTask[]> {
+  async getProcessTaskDaily(
+    userId: string,
+    date: string | Date
+  ): Promise<IDailyTask[]> {
     const targetDate = new Date(date);
 
     if (isNaN(targetDate.getTime())) {
@@ -32,12 +35,16 @@ export class DailyRepositoryImpl implements IDailyRepository {
     const startOfDay = new Date(targetDate.setHours(0, 0, 0, 0));
     const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999));
     return await DailyTask.find({
+      userId,
       createdAt: { $gte: startOfDay, $lte: endOfDay },
       status: { $ne: "done" },
     });
   }
 
-  async getCompletedTaskDaily(date: string | Date): Promise<IDailyTask[]> {
+  async getCompletedTaskDaily(
+    userId: string,
+    date: string | Date
+  ): Promise<IDailyTask[]> {
     const targetDate = new Date(date);
     if (isNaN(targetDate.getTime())) {
       throw new Error("Ngày không hợp lệ");
@@ -47,6 +54,7 @@ export class DailyRepositoryImpl implements IDailyRepository {
     const endOfDay = new Date(targetDate.setHours(23, 59, 59, 999));
 
     return await DailyTask.find({
+      userId,
       createdAt: { $gte: startOfDay, $lte: endOfDay },
       status: "done",
     });

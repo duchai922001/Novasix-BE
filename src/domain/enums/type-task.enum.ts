@@ -1,6 +1,6 @@
 export enum TypeTask {
-  IMPORTANCE = "Importance",
-  NOT_IMPORTANCE = "Not_Importance",
-  URGENCY = "Urgency",
-  NOT_URGENCY = "Not_Urgency",
+  IMPORTANCE_NOT_URGENCY = "Importance_Not_Urgency",
+  IMPORTANCE_URGENCY = "Importance_Urgency",
+  NOT_IMPORTANCE_NOT_URGENCY = "Not_Importance_Not_Urgency",
+  NOT_IMPORTANCE_URGENCY = "Not_Importance_Urgency",
 }
