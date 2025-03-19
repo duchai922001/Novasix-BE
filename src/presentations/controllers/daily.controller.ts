@@ -51,6 +51,7 @@ export const DailyTaskController = {
   },
   getTaskDoneDaily: async (req: Request, res: Response) => {
     const { date } = req.query;
+
     const user = res.locals.user;
     if (!date || typeof date !== "string") {
       return res
@@ -63,6 +64,14 @@ export const DailyTaskController = {
     );
     return res.json(
       successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", taskDoneDaily)
+    );
+  },
+
+  getTaskById: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = await DailyTaskService.getTaskById(id);
+    return res.json(
+      successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", data)
     );
   },
 };

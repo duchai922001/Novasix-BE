@@ -9,6 +9,7 @@ import weeklyTaskRoutes from "./week.route";
 import monthlyEventRoutes from "./monthly.route";
 import sentenceRoutes from "./sentence.route";
 import quoteRoutes from "./quote.route";
+import pomodoroRoutes from "./pomodoro.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
@@ -17,6 +18,7 @@ export const initRoutes = (app: any) => {
   app.use("/monthly-event", monthlyEventRoutes);
   app.use("/sentence", sentenceRoutes);
   app.use("/quote", quoteRoutes);
+  app.use("/pomodoro", pomodoroRoutes);
   app.use("*", (req: Request, res: Response) => {
     const notFoundException = new NotFoundException("Endpoint không tìm thấy");
     res.status(HttpStatus.NOT_FOUND).json(notFoundException.toResponse());

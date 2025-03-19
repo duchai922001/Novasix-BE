@@ -2,6 +2,7 @@ import { BadRequestException } from "../domain/exceptions/bad-request.exception"
 import { NotFoundException } from "../domain/exceptions/not-found.exception";
 import { DailyRepositoryImpl } from "../infrastructure/repositoriesImpl/daily.repositoryImpl";
 import { DailyTaskDTO } from "../presentations/dtos/daily/daily-task.dto";
+import { UpdateDailyTaskDTO } from "../presentations/dtos/daily/update.dto";
 import { createAndValidateDto } from "../utils/createAndValidateDto.util";
 
 const DailyTaskRepo = new DailyRepositoryImpl();
@@ -12,7 +13,10 @@ export const DailyTaskService = {
   },
 
   updateDailyTask: async (id: string, data: any) => {
-    const dataDailyTaskDTO = await createAndValidateDto(DailyTaskDTO, data);
+    const dataDailyTaskDTO = await createAndValidateDto(
+      UpdateDailyTaskDTO,
+      data
+    );
     const findDailyTask = await DailyTaskRepo.findDailyTaskById(id);
     if (!findDailyTask) {
       throw new NotFoundException("Không tìm thấy task vụ này");
@@ -34,5 +38,9 @@ export const DailyTaskService = {
   getTaskDoneDaily: async (userId: string, date: string | Date) => {
     const taskDaily = await DailyTaskRepo.getCompletedTaskDaily(userId, date);
     return taskDaily;
+  },
+
+  getTaskById: async (taskId: string) => {
+    return await DailyTaskRepo.findDailyTaskById(taskId);
   },
 };

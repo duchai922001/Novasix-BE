@@ -2,6 +2,9 @@ import { IUserRepository } from "../../domain/repositories/user.repository";
 import User, { IUser } from "../model/user.model";
 
 export class UserRepoImpl implements IUserRepository {
+  async findUserById(userId: string): Promise<IUser | null> {
+    return await User.findById(userId);
+  }
   async findUserByEmail(email: string): Promise<IUser | null> {
     return await User.findOne({ email });
   }

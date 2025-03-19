@@ -2,27 +2,29 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface IAchievement extends Document {
   name: string;
-  image: string;
   description: string;
-  typeEven: "normal" | "special";
-  unlockCondition: number;
-  dateAchieved: string;
-  experiencePoints: number;
-  giftPoint: number;
-  status: "lock" | "unlock";
+  image: string;
+  type: "daily" | "weekly" | "monthly" | "onboarding"; // Loại nhiệm vụ
+  unlockCondition: number; // Điều kiện để mở khóa (ví dụ: 5 task, 3 pomodoro, etc.)
+  giftPoint: number; // Điểm thưởng khi đạt được
+  status: "lock" | "unlock"; // Trạng thái của achievement
 }
 
 const AchievementSchema: Schema = new Schema<IAchievement>(
   {
-    name: {
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    image: { type: String, required: true },
+    type: {
       type: String,
+      enum: ["daily", "weekly", "monthly", "onboarding"],
       required: true,
     },
+    unlockCondition: { type: Number, required: true },
+    giftPoint: { type: Number, required: true },
+    status: { type: String, enum: ["lock", "unlock"], default: "lock" },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+  { timestamps: true, versionKey: false }
 );
 
 const Achievement = mongoose.model<IAchievement>(

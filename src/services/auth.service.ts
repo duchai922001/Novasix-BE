@@ -1,5 +1,6 @@
 import { BadRequestException } from "../domain/exceptions/bad-request.exception";
 import { IUser } from "../infrastructure/model/user.model";
+import { PomodoroRepositoryImpl } from "../infrastructure/repositoriesImpl/pomodoro.repositoryImpl";
 import { UserRepoImpl } from "../infrastructure/repositoriesImpl/user.repositoryImpl";
 import { LoginDTO } from "../presentations/dtos/auth/login.dto";
 import { RegisterDTO } from "../presentations/dtos/auth/register.dto";
@@ -23,6 +24,7 @@ export const AuthService = {
       throw new BadRequestException("Email này đã được đăng ký");
     }
     const hashPassword = await bcrypt.hash(dataRegisterDTO.password, 10);
+
     return await userRepo.createUser({
       ...dataRegisterDTO,
       password: hashPassword,
