@@ -73,20 +73,32 @@ export const PaymentController = {
 
   callback: async (req: Request, res: Response) => {
     const { data } = req.body;
-    console.log("chạy vào đây", data);
-    // Xác thực chữ ký MAC
-    const macData = `${data.app_id}|${data.app_trans_id}|${data.reference}|${data.amount}|${data.status}`;
-    const mac = CryptoJS.HmacSHA256(macData, config.key2).toString();
+    let postData = {
+      app_id: data.app_id,
+      app_trans_id: data.app_trans_id,
+      mac: "",
+    };
+    let dataCheck =
+      postData.app_id + "|" + postData.app_trans_id + "|" + config.key1;
+    postData.mac = CryptoJS.HmacSHA256(dataCheck, config.key1).toString();
 
-    if (mac !== data.mac) {
-      return res.status(400).json({ message: "Invalid MAC" });
+    let postConfig = {
+      method: "post",
+      url: "https://sb-openapi.zalopay.vn/v2/query",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      data: qs.stringify(postData),
+    };
+
+    const result = await axios(postConfig);
+    if (result.data.return_code === 1) {
+      const status = "success";
+      await OrderService.updateOrderStatus(data.app_trans_id, status);
+    } else {
+      const status = "failed";
+      await OrderService.updateOrderStatus(data.app_trans_id, status);
     }
-
-    // Kiểm tra trạng thái thanh toán
-    const status = data.status === 1 ? "success" : "failed";
-
-    // Cập nhật đơn hàng trong database
-    await OrderService.updateOrderStatus(data.app_trans_id, status);
 
     return res.json({ message: "Callback received successfully" });
   },
