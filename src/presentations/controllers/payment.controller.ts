@@ -19,7 +19,7 @@ export const PaymentController = {
   createPayment: async (req: Request, res: Response) => {
     const { userId, amount } = req.body;
     const embed_data = {
-      redirecturl: "https://novasix-be.onrender.com/wallet",
+      redirecturl: "https://novasix.vercel.app/wallet",
     };
 
     const items = [
