@@ -12,6 +12,14 @@ import quoteRoutes from "./quote.route";
 import pomodoroRoutes from "./pomodoro.route";
 import orderRoutes from "./order.route";
 import paymentRoutes from "./payment.route";
+import walletRoutes from "./wallet.route";
+import userRoutes from "./user.route";
+import missionRoutes from "./mission.route";
+import packageRoutes from "./package.route";
+import userPackageRoutes from "./user-package.route";
+import dashboardRoutes from "./dashboard.route";
+import taskUsageRoutes from "./task-usage.route";
+import uploadImageRoutes from "./upload.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
@@ -22,7 +30,15 @@ export const initRoutes = (app: any) => {
   app.use("/quote", quoteRoutes);
   app.use("/pomodoro", pomodoroRoutes);
   app.use("/order", orderRoutes);
+  app.use("/wallet", walletRoutes);
   app.use("/payment", paymentRoutes);
+  app.use("/user", userRoutes);
+  app.use("/mission", missionRoutes);
+  app.use("/package", packageRoutes);
+  app.use("/user-package", userPackageRoutes);
+  app.use("/dashboard", dashboardRoutes);
+  app.use("/task-usage", taskUsageRoutes);
+  app.use("/upload", uploadImageRoutes);
   app.use("*", (req: Request, res: Response) => {
     const notFoundException = new NotFoundException("Endpoint không tìm thấy");
     res.status(HttpStatus.NOT_FOUND).json(notFoundException.toResponse());

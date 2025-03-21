@@ -1,6 +1,8 @@
 import { IOrder } from "../infrastructure/model/order.model";
 import { OrderRepoImpl } from "../infrastructure/repositoriesImpl/order.repositoryImpl";
+import { WalletRepositoryImpl } from "../infrastructure/repositoriesImpl/wallet.repositoryImpl";
 const orderRepo = new OrderRepoImpl();
+const walletRepo = new WalletRepositoryImpl();
 export const OrderService = {
   createOrder: async (formData: any) => {
     return await orderRepo.createOrder(formData);
@@ -9,6 +11,9 @@ export const OrderService = {
     return await orderRepo.getOrderByUser(userId);
   },
   updateOrderStatus: async (transId: string, status: string) => {
-    return await orderRepo.updateOrderStatus(transId, status);
+    const data = await orderRepo.updateOrderStatus(transId, status);
+    if (data && status === "success") {
+      await walletRepo.depositeWallet(data?.userId, data?.amount / 100);
+    }
   },
 };

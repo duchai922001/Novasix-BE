@@ -4,7 +4,7 @@ export interface IAchievement extends Document {
   name: string;
   description: string;
   image: string;
-  type: "daily" | "weekly" | "monthly" | "onboarding"; // Loại nhiệm vụ
+  type: "daily" | "weekly" | "monthly" | "onboarding";
   unlockCondition: number; // Điều kiện để mở khóa (ví dụ: 5 task, 3 pomodoro, etc.)
   giftPoint: number; // Điểm thưởng khi đạt được
   status: "lock" | "unlock"; // Trạng thái của achievement

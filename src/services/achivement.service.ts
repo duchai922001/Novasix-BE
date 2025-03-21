@@ -17,13 +17,13 @@ export const AchivementService = {
     if (!user) {
       throw new NotFoundException("Không tìm thấy người dùng");
     }
-    user.tasksCompleted += formData.tasksCompleted;
+    user.totalTasks += formData.tasksCompleted;
     user.dailyPomodoroUsed += formData.pomodoroUsed;
     user.gratitudeEntries += formData.gratitudeEntries;
 
     const achievements = await achivementRepo.getAllAchivement();
     achievements.forEach((ach) => {
-      if (user.tasksCompleted >= ach.unlockCondition) {
+      if (user.totalTasks >= ach.unlockCondition) {
         user.point += ach.giftPoint;
       }
     });

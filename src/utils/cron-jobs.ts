@@ -8,7 +8,7 @@ cron.schedule("0 0 * * *", async () => {
   console.log("🔄 Reset daily tasks...");
   await User.updateMany(
     {},
-    { tasksCompleted: 0, pomodoroUsed: 0, gratitudeEntries: 0 }
+    { totalTasks: 0, pomodoroUsed: 0, gratitudeEntries: 0 }
   );
   console.log("✅ Daily reset completed!");
 });

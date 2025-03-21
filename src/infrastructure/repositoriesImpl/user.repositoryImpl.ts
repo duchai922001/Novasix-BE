@@ -2,6 +2,18 @@ import { IUserRepository } from "../../domain/repositories/user.repository";
 import User, { IUser } from "../model/user.model";
 
 export class UserRepoImpl implements IUserRepository {
+  async updateUser(userId: string, formData: any): Promise<IUser | null> {
+    return await User.findByIdAndUpdate(userId, formData);
+  }
+  async getUserCurrent(userId: string): Promise<IUser | null> {
+    return await User.findById(userId);
+  }
+  async updateMissionUser(
+    userId: string,
+    formData: any
+  ): Promise<IUser | null> {
+    return await User.findByIdAndUpdate(userId, formData);
+  }
   async findUserById(userId: string): Promise<IUser | null> {
     return await User.findById(userId);
   }

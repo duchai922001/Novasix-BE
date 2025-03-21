@@ -73,9 +73,10 @@ export const PaymentController = {
 
   callback: async (req: Request, res: Response) => {
     const { data } = req.body;
+    const parsedData = JSON.parse(data);
     let postData = {
-      app_id: data.app_id,
-      app_trans_id: data.app_trans_id,
+      app_id: parsedData.app_id,
+      app_trans_id: parsedData.app_trans_id,
       mac: "",
     };
     let dataCheck =
@@ -92,12 +93,13 @@ export const PaymentController = {
     };
 
     const result = await axios(postConfig);
+
     if (result.data.return_code === 1) {
       const status = "success";
-      await OrderService.updateOrderStatus(data.app_trans_id, status);
+      await OrderService.updateOrderStatus(parsedData.app_trans_id, status);
     } else {
       const status = "failed";
-      await OrderService.updateOrderStatus(data.app_trans_id, status);
+      await OrderService.updateOrderStatus(parsedData.app_trans_id, status);
     }
 
     return res.json({ message: "Callback received successfully" });

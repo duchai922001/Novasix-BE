@@ -1,15 +1,14 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { PackageType } from "../../domain/enums/package-type.enum";
 
 export interface IPackage extends Document {
   name: string;
   price: number;
-  timeExp: number; //tinh theo ngay
-  mainDescription: string;
-  subDescription: string;
-  giftPoint: number;
-  type: string;
-  isShow: boolean; // default true
-  discount: number;
+  timeExp: number;
+  description: string;
+  isShow: boolean;
+  discountPercent: number;
+  typePackage: string;
 }
 
 const PackageSchema: Schema = new Schema<IPackage>(
@@ -25,13 +24,22 @@ const PackageSchema: Schema = new Schema<IPackage>(
     timeExp: {
       type: Number,
       required: true,
+      default: 1,
     },
-    mainDescription: {
+    description: {
       type: String,
-      required: true,
     },
-    subDescription: {
+    isShow: {
+      type: Boolean,
+      default: true,
+    },
+    discountPercent: {
+      type: Number,
+      default: 0,
+    },
+    typePackage: {
       type: String,
+      enum: PackageType,
       required: true,
     },
   },

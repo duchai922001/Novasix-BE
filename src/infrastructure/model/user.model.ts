@@ -12,7 +12,10 @@ export interface IUser extends Document {
   isActive: boolean;
   role: Role;
   personalInfoCompleted: boolean; // Đã cập nhật thông tin cá nhân chưa?
-  tasksCompleted: number; // Số task hoàn thành
+  onBoardDaily: number;
+  onBoardWeekly: number;
+  onBoardMonthly: number;
+  totalTasks: number; // Số task hoàn thành
   dailyPomodoroUsed: number; // Tổng số pomodoro đã dùng trong ngay
   weeklyPomodoroUsed: number; // Tổng số pomodoro đã dùng trong tuan
   monthlyPomodoroUsed: number; // Tổng số pomodoro đã dùng trong thang
@@ -60,7 +63,10 @@ const UserSchema: Schema = new Schema<IUser>(
       default: Role.CUSTOMER,
     },
     personalInfoCompleted: { type: Boolean, default: false },
-    tasksCompleted: { type: Number, default: 0 },
+    onBoardDaily: { type: Number, default: 0 },
+    onBoardWeekly: { type: Number, default: 0 },
+    onBoardMonthly: { type: Number, default: 0 },
+    totalTasks: { type: Number, default: 0 },
     dailyPomodoroUsed: { type: Number, default: 0 },
     weeklyPomodoroUsed: { type: Number, default: 0 },
     monthlyPomodoroUsed: { type: Number, default: 0 },
