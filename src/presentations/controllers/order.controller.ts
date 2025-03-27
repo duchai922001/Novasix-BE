@@ -17,4 +17,13 @@ export const OrderController = {
       successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", data)
     );
   },
+  getAllOrder: async (req: Request, res: Response) => {
+    const username = req.query.username as string;
+    const transId = req.query.transId as string;
+    const status = req.query.status as string;
+    const data = await OrderService.getAllOrder(transId, username, status);
+    return res.json(
+      successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", data)
+    );
+  },
 };

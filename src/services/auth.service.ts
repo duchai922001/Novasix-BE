@@ -42,6 +42,9 @@ export const AuthService = {
     if (!isMatch) {
       throw new BadRequestException("Tài khoản hoặc mật khẩu không đúng");
     }
+    if (!user.isActive) {
+      throw new BadRequestException("Tài khoản của bạn bị chặn quyền vào");
+    }
     const token = jwt.sign(
       { userId: user._id, username: user.username, role: user.role },
       process.env.JWT_SECRET as string,

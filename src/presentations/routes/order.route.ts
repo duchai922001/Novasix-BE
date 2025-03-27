@@ -11,5 +11,10 @@ orderRoutes.post(
   catchAsync(OrderController.createOrder)
 );
 orderRoutes.get("/", verifyToken, catchAsync(OrderController.getOrdersByUser));
+orderRoutes.get(
+  "/transaction",
+  verifyToken,
+  catchAsync(OrderController.getAllOrder)
+);
 
 export default orderRoutes;

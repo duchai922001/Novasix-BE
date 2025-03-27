@@ -8,4 +8,5 @@ export interface IUserRepository {
   updateMissionUser(userId: string, formData: any): Promise<IUser | null>;
   getUserCurrent(userId: string): Promise<IUser | null>;
   updateUser(userId: string, formData: any): Promise<IUser | null>;
+  getAllUser(): Promise<IUser[]>;
 }

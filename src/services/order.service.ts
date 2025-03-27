@@ -16,4 +16,8 @@ export const OrderService = {
       await walletRepo.depositeWallet(data?.userId, data?.amount / 100);
     }
   },
+  getAllOrder: async (transId: string, username: string, status: string) => {
+    const data = await orderRepo.getAllOrder(transId, username, status);
+    return data;
+  },
 };

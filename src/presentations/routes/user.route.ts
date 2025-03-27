@@ -17,4 +17,10 @@ userRoutes.get(
   catchAsync(UserController.getUserCurrent)
 );
 userRoutes.put("/update", verifyToken, catchAsync(UserController.updateUser));
+userRoutes.get("/get-all", verifyToken, catchAsync(UserController.getAllUser));
+userRoutes.put(
+  "/action-active/:id",
+  verifyToken,
+  catchAsync(UserController.actionIsActiveUser)
+);
 export default userRoutes;

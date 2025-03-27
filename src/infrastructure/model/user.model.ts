@@ -55,7 +55,7 @@ const UserSchema: Schema = new Schema<IUser>(
     },
     isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     role: {
       type: String,
