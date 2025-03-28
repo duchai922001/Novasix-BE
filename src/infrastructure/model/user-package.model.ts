@@ -1,8 +1,12 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+interface ITypePackage extends Document {
+  _id: mongoose.Types.ObjectId;
+  typePackage: string;
+}
 export interface IUserPackage extends Document {
   userId: string;
-  packageId: string;
+  packageId: string | ITypePackage;
   startDate: Date;
   endDate: Date;
   status: string;
