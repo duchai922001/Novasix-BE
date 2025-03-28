@@ -21,6 +21,7 @@ import dashboardRoutes from "./dashboard.route";
 import taskUsageRoutes from "./task-usage.route";
 import uploadImageRoutes from "./upload.route";
 import pomodoroSettingRoutes from "./pomodoro-setting.route";
+import notificationRoutes from "./notification.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
@@ -41,6 +42,7 @@ export const initRoutes = (app: any) => {
   app.use("/dashboard", dashboardRoutes);
   app.use("/task-usage", taskUsageRoutes);
   app.use("/upload", uploadImageRoutes);
+  app.use("/notification", notificationRoutes);
   app.use("*", (req: Request, res: Response) => {
     const notFoundException = new NotFoundException("Endpoint không tìm thấy");
     res.status(HttpStatus.NOT_FOUND).json(notFoundException.toResponse());
