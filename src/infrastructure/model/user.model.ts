@@ -11,6 +11,7 @@ export interface IUser extends Document {
   point: number;
   isActive: boolean;
   role: Role;
+  deviceId?: string;
   personalInfoCompleted: boolean; // Đã cập nhật thông tin cá nhân chưa?
   onBoardDaily: number;
   onBoardWeekly: number;
@@ -39,6 +40,7 @@ const UserSchema: Schema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    deviceId: { type: String },
     email: {
       type: String,
       required: true,

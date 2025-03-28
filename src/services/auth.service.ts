@@ -45,6 +45,11 @@ export const AuthService = {
     if (!user.isActive) {
       throw new BadRequestException("Tài khoản của bạn bị chặn quyền vào");
     }
+    if (user.deviceId && user.deviceId !== dataLogin.deviceId) {
+      throw new BadRequestException(`Bạn đã đăng nhập một thiết bị khác.`);
+    }
+    user.deviceId = dataLogin.deviceId;
+    await user.save();
     const token = jwt.sign(
       { userId: user._id, username: user.username, role: user.role },
       process.env.JWT_SECRET as string,
@@ -55,5 +60,14 @@ export const AuthService = {
       ...userWithoutPassword,
       access_token: token,
     };
+  },
+  logout: async (userId: string) => {
+    const user = await userRepo.findUserById(userId);
+    if (!user) {
+      throw new BadRequestException("Người dùng không tồn tại");
+    }
+
+    user.deviceId = "";
+    return await user.save();
   },
 };

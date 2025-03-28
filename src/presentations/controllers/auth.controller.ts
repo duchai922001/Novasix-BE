@@ -29,4 +29,10 @@ export const AuthController = {
       successResponse(HttpStatus.OK, "Đăng nhập thành công", user)
     );
   },
+  logout: async (req: Request, res: Response) => {
+    const user = res.locals.user;
+
+    await AuthService.logout(user.userId);
+    return res.json(successResponse(HttpStatus.OK, "Đăng xuất thành công"));
+  },
 };

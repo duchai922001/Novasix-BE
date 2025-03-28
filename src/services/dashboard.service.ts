@@ -157,37 +157,42 @@ export const DashboardService = {
     const analysisPackageTotal = await UserPackage.aggregate([
       {
         $group: {
-          _id: "$packageId", // Nhóm theo packageId
+          _id: { $toObjectId: "$packageId" }, // Chuyển packageId sang ObjectId nếu cần
           value: { $sum: 1 }, // Đếm số lần xuất hiện của mỗi packageId
         },
       },
       {
         $lookup: {
-          from: "packages", // Nối bảng (collection) Package
+          from: "packages", // Nối bảng Package
           localField: "_id",
           foreignField: "_id",
           as: "packageInfo",
         },
       },
-      { $unwind: "$packageInfo" }, // Trả về object thay vì array
+      { $unwind: { path: "$packageInfo", preserveNullAndEmptyArrays: true } }, // Giữ dữ liệu ngay cả khi không có match
       {
         $project: {
           _id: 0,
-          name: "$packageInfo.name",
+          name: "$packageInfo.name", // Lấy tên gói
           value: 1, // Giữ lại giá trị đã đếm
         },
       },
     ]);
     const analysisPackageAmount = await UserPackage.aggregate([
       {
+        $addFields: {
+          packageId: { $toObjectId: "$packageId" }, // Chuyển packageId từ String sang ObjectId nếu cần
+        },
+      },
+      {
         $lookup: {
-          from: "packages", // Nối bảng (collection) Package
+          from: "packages", // Nối bảng Package
           localField: "packageId",
           foreignField: "_id",
           as: "packageInfo",
         },
       },
-      { $unwind: "$packageInfo" }, // Chuyển packageInfo từ array thành object
+      { $unwind: { path: "$packageInfo", preserveNullAndEmptyArrays: true } }, // Tránh mất dữ liệu nếu không tìm thấy package
       {
         $group: {
           _id: "$packageId", // Nhóm theo packageId
@@ -199,12 +204,17 @@ export const DashboardService = {
         $project: {
           _id: 0,
           name: 1,
-          value: "$totalRevenue",
+          value: { $multiply: ["$totalRevenue", 100] }, // Đổi tên cho thống nhất
         },
       },
     ]);
 
     const tablePackage = await UserPackage.aggregate([
+      {
+        $addFields: {
+          packageId: { $toObjectId: "$packageId" }, // Chuyển packageId từ String sang ObjectId nếu cần
+        },
+      },
       {
         $lookup: {
           from: "packages", // Nối bảng Package để lấy thông tin gói
@@ -213,7 +223,7 @@ export const DashboardService = {
           as: "packageInfo",
         },
       },
-      { $unwind: "$packageInfo" }, // Chuyển packageInfo từ mảng thành object
+      { $unwind: { path: "$packageInfo", preserveNullAndEmptyArrays: true } }, // Tránh mất dữ liệu nếu không tìm thấy package
       {
         $group: {
           _id: "$packageId", // Nhóm theo packageId
@@ -235,8 +245,8 @@ export const DashboardService = {
 
     return {
       totalUser,
-      userRegisterPackage,
-      totalRevenue,
+      userRegisterPackage: userRegisterPackage.length,
+      totalRevenue: totalRevenue?.[0].totalRevenue,
       analysisPackageAmount,
       analysisPackageTotal,
       tablePackage,
