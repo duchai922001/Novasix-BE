@@ -25,5 +25,10 @@ dashboardRoutes.get(
   verifyToken,
   catchAsync(DashboardController.getDashboardYearly)
 );
+dashboardRoutes.get(
+  "/admin",
+  verifyToken,
+  catchAsync(DashboardController.getDashboardAdmin)
+);
 
 export default dashboardRoutes;

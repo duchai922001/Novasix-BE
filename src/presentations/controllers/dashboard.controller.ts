@@ -32,4 +32,10 @@ export const DashboardController = {
       successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", data)
     );
   },
+  getDashboardAdmin: async (req: Request, res: Response) => {
+    const data = await DashboardService.getDashboardAdmin();
+    return res.json(
+      successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", data)
+    );
+  },
 };

@@ -20,6 +20,7 @@ import userPackageRoutes from "./user-package.route";
 import dashboardRoutes from "./dashboard.route";
 import taskUsageRoutes from "./task-usage.route";
 import uploadImageRoutes from "./upload.route";
+import pomodoroSettingRoutes from "./pomodoro-setting.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
@@ -29,6 +30,7 @@ export const initRoutes = (app: any) => {
   app.use("/sentence", sentenceRoutes);
   app.use("/quote", quoteRoutes);
   app.use("/pomodoro", pomodoroRoutes);
+  app.use("/pomodoro-setting", pomodoroSettingRoutes);
   app.use("/order", orderRoutes);
   app.use("/wallet", walletRoutes);
   app.use("/payment", paymentRoutes);
