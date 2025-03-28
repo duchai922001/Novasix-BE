@@ -246,7 +246,7 @@ export const DashboardService = {
     return {
       totalUser,
       userRegisterPackage: userRegisterPackage?.length,
-      totalRevenue: totalRevenue?.[0]?.totalRevenue,
+      totalRevenue: totalRevenue?.[0]?.totalRevenue ?? 0,
       analysisPackageAmount,
       analysisPackageTotal,
       tablePackage,
