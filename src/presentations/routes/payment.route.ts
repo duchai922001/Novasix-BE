@@ -7,9 +7,9 @@ const paymentRoutes = Router();
 
 paymentRoutes.post(
   "/create",
-  verifyToken,
+  // verifyToken,
   catchAsync(PaymentController.createPayment)
 );
-paymentRoutes.post("/callback", catchAsync(PaymentController.callback));
+// paymentRoutes.post("/callback", catchAsync(PaymentController.callback));
 
 export default paymentRoutes;

@@ -10,7 +10,6 @@ import "./utils/cron-jobs";
 dotenv.config();
 const app = express();
 const httpServer = createServer(app); // Sử dụng httpServer thay vì app.listen()
-
 // Config Middleware
 app.use(express.json());
 const corsOptions = {

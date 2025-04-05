@@ -26,4 +26,9 @@ export const OrderController = {
       successResponse(HttpStatus.OK, "Lấy dữ liệu thành công", data)
     );
   },
+  updateOrderStatus: async (req: Request, res: Response) => {
+    const { transId, status } = req.body;
+    await OrderService.updateOrderStatus(transId, status);
+    return res.json(successResponse(HttpStatus.OK, "Cập nhật thành công"));
+  },
 };

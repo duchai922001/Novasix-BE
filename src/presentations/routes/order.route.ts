@@ -11,6 +11,11 @@ orderRoutes.post(
   catchAsync(OrderController.createOrder)
 );
 orderRoutes.get("/", verifyToken, catchAsync(OrderController.getOrdersByUser));
+orderRoutes.put(
+  "/update-status",
+  verifyToken,
+  catchAsync(OrderController.updateOrderStatus)
+);
 orderRoutes.get(
   "/transaction",
   verifyToken,
