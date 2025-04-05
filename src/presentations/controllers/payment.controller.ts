@@ -148,8 +148,8 @@ export const PaymentController = {
       amount,
       description: `Thanh toan ${orderCode}`,
       orderCode,
-      returnUrl: `http://localhost:5173/wallet`,
-      cancelUrl: `http://localhost:5173/wallet`,
+      returnUrl: `https://zendo.io.vn/wallet`,
+      cancelUrl: `https://zendo.io.vn/wallet`,
     };
     await OrderService.createOrder({
       userId,
