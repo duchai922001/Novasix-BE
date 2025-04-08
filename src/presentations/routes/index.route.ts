@@ -22,11 +22,13 @@ import taskUsageRoutes from "./task-usage.route";
 import uploadImageRoutes from "./upload.route";
 import pomodoroSettingRoutes from "./pomodoro-setting.route";
 import notificationRoutes from "./notification.route";
+import weeklyReflectionRoutes from "./weekly-reflection.route";
 
 export const initRoutes = (app: any) => {
   app.use("/", authRoutes);
   app.use("/daily-task", dailyTaskRoutes);
   app.use("/weekly-task", weeklyTaskRoutes);
+  app.use("/weekly-reflection", weeklyReflectionRoutes);
   app.use("/monthly-event", monthlyEventRoutes);
   app.use("/sentence", sentenceRoutes);
   app.use("/quote", quoteRoutes);
